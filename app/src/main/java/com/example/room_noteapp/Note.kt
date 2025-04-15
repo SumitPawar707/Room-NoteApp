@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Note(
     var title:String,               //Column names
     var description:String,
-    var age:Int
+    var priority:Int
 ){
     //Primary key(autoIncrement)
     @PrimaryKey(autoGenerate = true)
