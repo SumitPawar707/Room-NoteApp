@@ -1,6 +1,5 @@
 package com.example.room_noteapp.adaptors
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,7 @@ class NoteAdaptor():
     }
     fun setNotes(note:MutableList<Note>){
         notesList=note
+        notifyDataSetChanged()
     }
 
     inner class NoteViewHolder(view:View):RecyclerView.ViewHolder(view){
