@@ -14,6 +14,9 @@ class NoteRepository (private var notesDao:NoteDao){
     suspend fun delete(note: Note){
         notesDao.delete(note)
     }
+    suspend fun delteAllNotes(){
+        notesDao.deleteAllNotes()
+    }
 
 }
 /*
