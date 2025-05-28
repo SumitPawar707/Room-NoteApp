@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.room_noteapp.Note
 import com.example.room_noteapp.R
 
-class NoteAdaptor():
+class NoteAdaptor(val listener:OnCLickListener):
     RecyclerView.Adapter<NoteAdaptor.NoteViewHolder>() {
     var notesList= mutableListOf<Note>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -39,5 +39,16 @@ class NoteAdaptor():
         var textViewtitle=view.findViewById(R.id.text_view_title) as TextView
         var textViewdescription: TextView = view.findViewById(R.id.text_view_description)
         var textViewpriority:TextView=view.findViewById(R.id.text_view_priority)
+
+        init {
+            view.setOnClickListener{
+                if(adapterPosition !=RecyclerView.NO_POSITION){
+                    listener.onCLickItem(notesList[adapterPosition])
+                }
+            }
+        }
+    }
+    interface OnCLickListener{
+        fun onCLickItem(note: Note)
     }
 }

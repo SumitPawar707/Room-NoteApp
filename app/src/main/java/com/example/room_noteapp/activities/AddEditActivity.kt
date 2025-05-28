@@ -34,7 +34,15 @@ class AddEditActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_closeicon)
-        title="Add Note"
+
+        if (intent.hasExtra(Constants.EXTRA_ID)){
+            title="Edit Note"
+            ediTextTitle.setText(intent.getStringExtra(Constants.EXTRA_TITLE))
+            editTextDescription.setText(intent.getStringExtra(Constants.EXTRA_DESCRIPTION))
+            numberPicer.value=intent.getIntExtra(Constants.EXTRA_PRIORITY,-1)
+        }else{
+            title="Add Note"
+        }
 
     }
 
@@ -62,11 +70,22 @@ class AddEditActivity : AppCompatActivity() {
             return
         }
 
-        setResult(Constants.REQUEST_CODE,intent.apply {
-            putExtra(Constants.EXTRA_TITLE,title)
-            putExtra(Constants.EXTRA_DESCRIPTION,description)
-            putExtra(Constants.EXTRA_PRIORITY,priority)
-        })
+        var id=intent.getIntExtra(Constants.EXTRA_ID,-1)
+        if (id !=-1){
+            setResult(Constants.EDIT_REQUEST_CODE,intent.apply {
+                putExtra(Constants.EXTRA_TITLE,title)
+                putExtra(Constants.EXTRA_DESCRIPTION,description)
+                putExtra(Constants.EXTRA_PRIORITY,priority)
+                putExtra(Constants.EXTRA_ID,id)
+            })
+        }else{
+            setResult(Constants.REQUEST_CODE,intent.apply {
+                putExtra(Constants.EXTRA_TITLE,title)
+                putExtra(Constants.EXTRA_DESCRIPTION,description)
+                putExtra(Constants.EXTRA_PRIORITY,priority)
+            })
+        }
+
         finish()
 
     }
